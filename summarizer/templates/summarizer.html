@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom CSS for Chatbot Style -->
+    <style>
+      body {
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .chat-container {
+        max-width: 600px;
+        width: 100%;
+      }
+      .chat-box {
+        border-radius: 10px;
+        background: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .chat-header {
+        background: #007bff;
+        color: white;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+      }
+      .chat-body {
+        padding: 15px;
+      }
+      .form-group label {
+        font-weight: bold;
+      }
+      .form-group textarea {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        padding: 10px;
+        width: 100%;
+        height: 100px;
+        resize: none;
+      }
+      .chat-footer {
+        text-align: right;
+      }
+      .chat-footer button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+      }
+      .summary-container {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .summary-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .summary-text {
+        background: #f1f1f1;
+        padding: 10px;
+        border-radius: 10px;
+        display: inline-block;
+      }
+    </style>
+
+    <title>{% block title %}Text Summarizer App{% endblock %}</title>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-box">
+        <div class="chat-header">Text Summarizer App</div>
+        <div class="chat-body">
+          <form method="POST" action="/summarizer">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+              {{ form.text.label(class="control-label") }} {{
+              form.text(class="form-control", rows=5) }} {% for error in
+              form.text.errors %}
+              <span class="text-danger">{{ error }}</span>
+              {% endfor %}
+            </div>
+            <div class="chat-footer">
+              {{ form.submit(class="btn btn-primary") }}
+            </div>
+          </form>
+          {% if summary %}
+          <div class="summary-container">
+            <div class="summary-header">Summary:</div>
+            <div class="summary-text">{{ summary }}</div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
